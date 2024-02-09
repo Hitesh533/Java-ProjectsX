@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 import java.sql.*;
 
-public class User {
+class User {
     private Connection connection;
     private Scanner scanner;
 
@@ -85,7 +85,7 @@ public class User {
     }
 }
 
-public class Accounts {
+class Accounts {
     private Connection connection;
     private Scanner scanner;
 
@@ -111,7 +111,7 @@ public class Accounts {
                 preparedStatement.setLong(1, account_number);
                 preparedStatement.setString(2, full_name);
                 preparedStatement.setString(3, email);
-                preparedStatement.setString(4, balance);
+                preparedStatement.setDouble(4, balance);
                 preparedStatement.setString(5, security_pin);
                 int rowsAffected = preparedStatement.executeUpdate();
                 if (rowsAffected > 0) {
@@ -177,7 +177,7 @@ public class Accounts {
     }
 }
 
-public class AccountManager {
+class AccountManager {
     private Connection connection;
     private Scanner scanner;
 
@@ -186,7 +186,7 @@ public class AccountManager {
         this.scanner = scanner;
     }
 
-    public void credit_money(long account_number) throws SQLException {
+    public void credit_money(long account_number)throws SQLException{
         scanner.nextLine();
         System.out.println("Enter Amount: ");
         double amount = scanner.nextInt();
@@ -207,16 +207,16 @@ public class AccountManager {
                     preparedStatement1.setLong(2, account_number);
                     int rowsAffected = preparedStatement1.executeUpdate();
                     if (affectedRows > 0) {
-                        System.out.println("Rs." + amount + " credited successfully");
+                        System.out.println("Rs." + amount +" credited successfully");
                         connection.commit();
                         connection.setAutoCommit(true);
                         return;
-                    } else {
+                    }else{
                         System.out.println("Transaction Failed");
                         connection.rollback();
                         connection.setAutoCommit(true);
                     }
-                } else {
+                }else{
                     System.out.println("Invalid Security Pin.");
                 }
             }
